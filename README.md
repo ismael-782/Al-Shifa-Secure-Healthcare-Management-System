@@ -81,6 +81,41 @@ as-shifa-healthcare/
 
 ---
 
+## Screenshots
+
+### Admin
+
+Full user directory and lifecycle management, appointment oversight, audit logs, and live security/system health monitoring.
+
+![Admin dashboard overview](screenshots/05-admin-overview.png)
+![Admin user management](screenshots/06-admin-users.png)
+![Admin appointments view](screenshots/07-admin-appointments.png)
+
+### Patient
+
+Book and cancel appointments, view your own decrypted medical records, and grant or revoke a doctor's access to your chart.
+
+![Patient dashboard overview](screenshots/08-patient-overview.png)
+![Patient appointments](screenshots/09-patient-appointments.png)
+![Patient booking flow](screenshots/10-patient-book-appointment.png)
+
+### Doctor
+
+See only patients who have actively consented to you, create and update versioned records with digitally signed prescriptions, manage appointments, and set your own weekly availability.
+
+![Doctor patient list](screenshots/11-doctor-my-patients.png)
+![Doctor patient records view](screenshots/12-doctor-patient-records.png)
+![Doctor appointments](screenshots/13-doctor-appointments.png)
+![Doctor availability schedule](screenshots/14-doctor-schedule.png)
+
+### Insurance Provider
+
+Insurance providers review claims submitted for completed appointments and approve or reject them with processor notes. Claim details are encrypted end to end, and the role has no access to clinical records, only claims.
+
+*(Screenshots for this role are not yet captured.)*
+
+---
+
 ## Setup Instructions
 
 ### 1. Prerequisites
@@ -194,7 +229,7 @@ Base URL: `http://localhost:3000/api/v1`
 
 ### Doctor
 | Method | Endpoint                              | Description           |
-|--------|---------------------------------------|-----------------------|
+|--------|----------------------------------------|-----------------------|
 | GET    | /doctor/list                          | All doctors (any role)|
 | GET    | /doctor/patients                      | Assigned patients     |
 | GET    | /doctor/patients/:id/records          | UC-04: Patient records|
@@ -202,14 +237,14 @@ Base URL: `http://localhost:3000/api/v1`
 
 ### Records
 | Method | Endpoint            | Description                        |
-|--------|---------------------|------------------------------------|
+|--------|---------------------|-------------------------------------|
 | GET    | /records/:id        | UC-04: View record                 |
 | POST   | /records            | UC-05: Create/update record        |
 | GET    | /records/:id/history| Version history (INT-02)           |
 
 ### Appointments
 | Method | Endpoint              | Description              |
-|--------|-----------------------|--------------------------|
+|--------|------------------------|--------------------------|
 | POST   | /appointments         | UC-03: Book appointment  |
 | GET    | /appointments/my      | Patient's appointments   |
 | GET    | /appointments/doctor  | Doctor's appointments    |
@@ -218,7 +253,7 @@ Base URL: `http://localhost:3000/api/v1`
 
 ### Insurance
 | Method | Endpoint                       | Description            |
-|--------|--------------------------------|------------------------|
+|--------|----------------------------------|------------------------|
 | POST   | /insurance/claims              | UC-06: Submit claim    |
 | GET    | /insurance/claims              | List claims            |
 | GET    | /insurance/claims/:id          | Claim details          |
@@ -226,7 +261,7 @@ Base URL: `http://localhost:3000/api/v1`
 
 ### Admin
 | Method | Endpoint                    | Description           |
-|--------|-----------------------------|-----------------------|
+|--------|------------------------------|-----------------------|
 | GET    | /admin/users                | List all users        |
 | PUT    | /admin/users/:id/unlock     | Unlock account        |
 | DELETE | /admin/users/:id            | Delete user           |
