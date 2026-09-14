@@ -2,6 +2,8 @@
 
 A production-ready, HIPAA-aligned healthcare management platform implementing full **CIA + AAA** security requirements.
 
+![Landing page](screenshots/01-landing-hero.png)
+
 ---
 
 ## Tech Stack
@@ -82,6 +84,20 @@ as-shifa-healthcare/
 ---
 
 ## Screenshots
+
+### Landing Page
+
+The public marketing site: role overview and the security controls implemented under the hood.
+
+![Landing hero](screenshots/01-landing-hero.png)
+![Landing page — roles](screenshots/02-landing-roles.png)
+![Landing page — security](screenshots/03-landing-security.png)
+
+### Login & MFA
+
+Doctor and admin accounts require a one-time email code on top of a password before a session is fully trusted.
+
+![MFA verification screen](screenshots/04-mfa-verification.png)
 
 ### Admin
 
