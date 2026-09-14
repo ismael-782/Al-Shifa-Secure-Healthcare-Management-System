@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+
+# Secrets — real local config, never commit. .env.example and .env.test
+# (dummy/local-only values) are intentionally NOT ignored.
+.env
+
+# Internal-only docs — kept locally for reference, deliberately not
+# published to the public repo (README.md IS published).
+SECURITY.md
+CLAUDE.md
+
+# Kept locally, not published — neither is required to install/run/test
+# the app: CI automation is optional tooling, and fix_login.sql is a
+# superseded one-off repair script (see backend/db/reset.js instead).
+.github/
+backend/db/fix_login.sql
+
+# Logs
+npm-debug.log*
+*.log
+
+# OS/editor cruft
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Test/coverage output
+coverage/

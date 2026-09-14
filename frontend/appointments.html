@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>As-Shifa — Book Appointment</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<nav class="navbar">
+    <div class="navbar-brand">
+        <div class="logo-icon">⚕️</div>
+        As-Shifa Healthcare
+    </div>
+    <div class="navbar-nav">
+        <a href="/dashboard-patient.html">← Dashboard</a>
+        <button onclick="handleLogout()">Logout</button>
+    </div>
+</nav>
+
+<div class="container" style="max-width:900px;padding:32px 24px">
+    <div class="page-header">
+        <h1>📅 Book an Appointment — UC-03</h1>
+        <p>Select a doctor, choose a date, and pick an available time slot.</p>
+    </div>
+
+    <!-- Step 1: Select Doctor -->
+    <div class="card mb-2">
+        <h3 style="margin-bottom:16px">Step 1 — Select a Doctor</h3>
+        <div id="doctors-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px">
+            <div style="text-align:center;padding:20px"><span class="loader loader-dark"></span></div>
+        </div>
+    </div>
+
+    <!-- Step 2: Choose Date and Slot (shown after doctor selected) -->
+    <div id="step-slots" class="hidden">
+        <div class="card mb-2">
+            <h3 style="margin-bottom:16px">Step 2 — Choose a Date</h3>
+            <p class="text-muted" style="margin-bottom:12px">
+                Viewing availability for: <strong id="selected-doctor-name">—</strong>
+            </p>
+            <div class="form-group" style="max-width:280px">
+                <label for="appt-date">Select Date <span class="required">*</span></label>
+                <input type="date" id="appt-date" class="form-control">
+            </div>
+            <div id="time-slots" style="margin-top:16px"></div>
+        </div>
+
+        <!-- Confirmation Panel -->
+        <div id="booking-summary" class="card hidden" style="border-left:4px solid var(--color-accent)">
+            <h3 style="margin-bottom:16px;color:var(--color-accent)">✓ Confirm Appointment</h3>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:20px">
+                <div>
+                    <h4 class="text-muted" style="font-size:.8rem;text-transform:uppercase;margin-bottom:4px">Doctor</h4>
+                    <p id="summary-doctor" style="font-weight:600">—</p>
+                </div>
+                <div>
+                    <h4 class="text-muted" style="font-size:.8rem;text-transform:uppercase;margin-bottom:4px">Date</h4>
+                    <p id="summary-date" style="font-weight:600">—</p>
+                </div>
+                <div>
+                    <h4 class="text-muted" style="font-size:.8rem;text-transform:uppercase;margin-bottom:4px">Time</h4>
+                    <p id="summary-time" style="font-weight:600">—</p>
+                </div>
+            </div>
+            <div id="booking-error" class="alert alert-error hidden"></div>
+            <button id="confirm-btn" class="btn btn-primary btn-lg" onclick="confirmBooking()">
+                Confirm Booking
+            </button>
+        </div>
+    </div>
+</div>
+
+<script src="/js/utils.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/appointments.js"></script>
+<script>
+    initAppointmentsPage();
+</script>
+</body>
+</html>

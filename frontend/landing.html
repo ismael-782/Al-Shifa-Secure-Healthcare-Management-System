@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="As-Shifa — a HIPAA-aligned healthcare management platform demo, built with layered security across authentication, authorization, integrity, confidentiality, availability, and auditing.">
+    <title>As-Shifa — Secure Healthcare Management</title>
+    <link rel="stylesheet" href="/css/landing.css">
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="bg-glow bg-glow-1"></div>
+<div class="bg-glow bg-glow-2"></div>
+
+<!-- ── Nav ─────────────────────────────────────────────────────────────── -->
+<nav class="nav">
+    <div class="nav-brand">
+        <span class="logo-mark" aria-hidden="true">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M24 4 L40 12 V24 C40 34 33 41 24 44 C15 41 8 34 8 24 V12 Z" stroke="url(#logoGrad)" stroke-width="2.5" fill="rgba(46,204,122,0.08)"/>
+                <path d="M14 24 H19 L22 17 L26 31 L29 24 H34" stroke="url(#logoGrad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                <defs>
+                    <linearGradient id="logoGrad" x1="8" y1="4" x2="40" y2="44" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#2ecc7a"/>
+                        <stop offset="1" stop-color="#1a6b8a"/>
+                    </linearGradient>
+                </defs>
+            </svg>
+        </span>
+        As-Shifa
+    </div>
+    <div class="nav-links">
+        <a href="#roles">Roles</a>
+        <a href="#security">Security</a>
+        <a href="#doctors">Care Team</a>
+    </div>
+    <div class="nav-cta">
+        <a href="/index.html" class="btn btn-ghost">Log In</a>
+        <a href="/register.html" class="btn btn-primary">Sign Up</a>
+    </div>
+</nav>
+
+<!-- ── Hero ────────────────────────────────────────────────────────────── -->
+<header class="hero">
+    <div class="hero-badge">⚕️ HIPAA-Aligned Platform Demo</div>
+    <h1>Healthcare infrastructure,<br><span class="text-gradient">engineered for trust.</span></h1>
+    <p class="hero-sub">
+        As-Shifa is a full-stack healthcare management system built around one idea:
+        every record, every role, and every request is verified, encrypted, and logged —
+        not bolted on after the fact.
+    </p>
+    <div class="hero-actions">
+        <a href="/register.html" class="btn btn-primary btn-lg">Create Patient Account →</a>
+        <a href="/index.html" class="btn btn-outline btn-lg">Log In</a>
+    </div>
+
+    <div class="pulse-line" aria-hidden="true">
+        <svg viewBox="0 0 800 80" preserveAspectRatio="none">
+            <polyline class="pulse-path" points="0,40 120,40 150,10 180,70 210,20 240,40 800,40" fill="none"/>
+        </svg>
+    </div>
+
+    <div class="stats-strip">
+        <div class="stat-pill">
+            <div class="stat-value" id="stat-patients">—</div>
+            <div class="stat-key">Patients Served <span class="stat-note">(count only — never names)</span></div>
+        </div>
+        <div class="stat-pill">
+            <div class="stat-value" id="stat-doctors">—</div>
+            <div class="stat-key">Specialists on Staff</div>
+        </div>
+        <div class="stat-pill">
+            <div class="stat-value">AES-256</div>
+            <div class="stat-key">Field-Level Encryption</div>
+        </div>
+        <div class="stat-pill">
+            <div class="stat-value">6/6</div>
+            <div class="stat-key">Security Domains Covered</div>
+        </div>
+    </div>
+</header>
+
+<!-- ── Care Team ───────────────────────────────────────────────────────── -->
+<section class="section" id="doctors">
+    <div class="section-head">
+        <span class="eyebrow">Care Team</span>
+        <h2>Meet the specialists</h2>
+        <p>A live directory pulled straight from the platform — names and specialties only,
+           exactly what a patient sees before booking.</p>
+    </div>
+    <div class="doctor-grid" id="doctor-grid">
+        <div class="skeleton-row"><span class="skeleton"></span><span class="skeleton"></span><span class="skeleton"></span></div>
+    </div>
+</section>
+
+<!-- ── Roles ───────────────────────────────────────────────────────────── -->
+<section class="section section-alt" id="roles">
+    <div class="section-head">
+        <span class="eyebrow">One Platform, Four Roles</span>
+        <h2>Built for everyone in the loop</h2>
+        <p>Each role sees exactly what it needs — nothing more — enforced server-side, not just hidden in the UI.</p>
+    </div>
+    <div class="role-grid">
+        <div class="role-card">
+            <div class="role-icon">🧑‍⚕️</div>
+            <h3>Patient</h3>
+            <ul>
+                <li>Book &amp; cancel appointments with any specialist</li>
+                <li>View your own medical records, decrypted only for you</li>
+                <li>Grant or revoke a doctor's access to your chart, any time</li>
+                <li>Insurance details on file, masked by default</li>
+            </ul>
+        </div>
+        <div class="role-card">
+            <div class="role-icon">👨‍⚕️</div>
+            <h3>Doctor</h3>
+            <ul>
+                <li>See only patients who've actively consented to you</li>
+                <li>Create &amp; update records — every edit versioned</li>
+                <li>Prescriptions digitally signed on save</li>
+                <li>Manage your own weekly availability</li>
+            </ul>
+        </div>
+        <div class="role-card">
+            <div class="role-icon">🛡️</div>
+            <h3>Admin</h3>
+            <ul>
+                <li>Full user directory &amp; account lifecycle management</li>
+                <li>Unlock accounts after failed-login lockouts</li>
+                <li>Searchable, filterable system-wide audit trail</li>
+                <li>Live security alerts &amp; system health monitoring</li>
+            </ul>
+        </div>
+        <div class="role-card">
+            <div class="role-icon">📄</div>
+            <h3>Insurance Provider</h3>
+            <ul>
+                <li>Review claims submitted for completed appointments</li>
+                <li>Approve or reject with processor notes</li>
+                <li>Claim details encrypted end to end</li>
+                <li>No access to clinical records — claims only</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- ── Security ────────────────────────────────────────────────────────── -->
+<section class="section" id="security">
+    <div class="section-head">
+        <span class="eyebrow">Under the Hood</span>
+        <h2>Security, layer by layer</h2>
+        <p>Every control below is actually implemented and independently tested — not aspirational bullet points.</p>
+    </div>
+    <div class="security-grid">
+        <div class="sec-card"><div class="sec-icon">🔐</div><h4>AES-256 Encryption</h4><p>Diagnoses, treatment, prescriptions, test results &amp; insurance data encrypted at the field level before they ever reach the database.</p></div>
+        <div class="sec-card"><div class="sec-icon">🧂</div><h4>Bcrypt Password Hashing</h4><p>Passwords are never stored or compared in plaintext — salted, adaptive-cost hashing throughout.</p></div>
+        <div class="sec-card"><div class="sec-icon">📟</div><h4>Multi-Factor Authentication</h4><p>Doctor &amp; admin accounts require a one-time email code on top of a password before a session is ever fully trusted.</p></div>
+        <div class="sec-card"><div class="sec-icon">🔒</div><h4>Account Lockout</h4><p>Repeated failed logins automatically lock the account and alert an administrator — brute force gets nowhere.</p></div>
+        <div class="sec-card"><div class="sec-icon">🧭</div><h4>Role-Based Access Control</h4><p>Every endpoint checks role server-side. A patient token can never reach an admin route, full stop.</p></div>
+        <div class="sec-card"><div class="sec-icon">🤝</div><h4>Consent-Based Record Access</h4><p>A doctor sees a patient's chart only if that patient has actively granted — and not revoked — consent.</p></div>
+        <div class="sec-card"><div class="sec-icon">🛡️</div><h4>CSRF Protection</h4><p>Every state-changing request carries a session-bound token a third-party site could never obtain.</p></div>
+        <div class="sec-card"><div class="sec-icon">🧱</div><h4>SQL Injection Prevention</h4><p>100% parameterized queries — user input is never concatenated into SQL, anywhere in the codebase.</p></div>
+        <div class="sec-card"><div class="sec-icon">🧼</div><h4>XSS Protection</h4><p>All rendered output is HTML-escaped; a strict Content-Security-Policy blocks unauthorized scripts outright.</p></div>
+        <div class="sec-card"><div class="sec-icon">🪟</div><h4>Clickjacking Defense</h4><p>The app can never be embedded in a hidden iframe on another site — enforced via CSP and X-Frame-Options.</p></div>
+        <div class="sec-card"><div class="sec-icon">⏱️</div><h4>Rate Limiting</h4><p>Auth endpoints and the API as a whole throttle abusive request volume automatically.</p></div>
+        <div class="sec-card"><div class="sec-icon">📜</div><h4>Full Audit Trail</h4><p>Every login, view, and change is logged with identity, timestamp, and outcome — searchable by admins.</p></div>
+        <div class="sec-card"><div class="sec-icon">✍️</div><h4>Digital Signatures</h4><p>Every prescription is HMAC-signed at save time, so tampering after the fact is detectable.</p></div>
+        <div class="sec-card"><div class="sec-icon">🕰️</div><h4>Record Versioning</h4><p>Every edit to a medical record snapshots the prior version — nothing is silently overwritten.</p></div>
+        <div class="sec-card"><div class="sec-icon">🚪</div><h4>Auto-Logout</h4><p>Idle sessions expire automatically, with a warning before they do.</p></div>
+        <div class="sec-card"><div class="sec-icon">✅</div><h4>Input Validation</h4><p>Every request body, param, and query string is type- and format-checked at the boundary before it's trusted.</p></div>
+    </div>
+</section>
+
+<!-- ── Footer ──────────────────────────────────────────────────────────── -->
+<footer class="footer">
+    <div class="footer-brand">
+        <span class="logo-mark logo-mark-sm" aria-hidden="true">⚕️</span>
+        As-Shifa Healthcare
+    </div>
+    <p>A HIPAA-aligned healthcare management system — built as a security-first
+       full-stack demo. Node.js &amp; Express · PostgreSQL · vanilla JS, no framework.</p>
+    <div class="footer-cta">
+        <a href="/index.html" class="btn btn-ghost">Log In</a>
+        <a href="/register.html" class="btn btn-primary">Create Account</a>
+    </div>
+</footer>
+
+<script src="/js/landing.js"></script>
+</body>
+</html>

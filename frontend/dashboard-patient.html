@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>As-Shifa — Patient Dashboard</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<!-- ── Navbar ───────────────────────────────────────────────────────────── -->
+<nav class="navbar">
+    <div class="navbar-brand">
+        <div class="logo-icon">⚕️</div>
+        As-Shifa Healthcare
+    </div>
+    <div class="navbar-nav">
+        <div class="navbar-user">
+            <span>Welcome, <strong class="user-greeting">Patient</strong></span>
+            <span class="role-badge">Patient</span>
+        </div>
+        <button onclick="handleLogout()">Logout</button>
+    </div>
+</nav>
+
+<div class="app-layout">
+    <!-- ── Sidebar ───────────────────────────────────────────────────── -->
+    <aside class="sidebar">
+        <ul class="sidebar-nav">
+            <li><a href="#" data-section="section-overview" onclick="showSection('section-overview');return false;" class="active">
+                <span class="nav-icon">🏠</span> Overview
+            </a></li>
+            <li><a href="#" data-section="section-records" onclick="showSection('section-records');return false;">
+                <span class="nav-icon">📋</span> Medical Records
+            </a></li>
+            <li><a href="#" data-section="section-appointments" onclick="showSection('section-appointments');return false;">
+                <span class="nav-icon">📅</span> Appointments
+            </a></li>
+            <li><a href="#" data-section="section-consents" onclick="showSection('section-consents');return false;">
+                <span class="nav-icon">🔐</span> Doctor Access
+            </a></li>
+            <li><a href="#" data-section="section-profile" onclick="showSection('section-profile');return false;">
+                <span class="nav-icon">👤</span> My Profile
+            </a></li>
+            <li><a href="/appointments.html">
+                <span class="nav-icon">➕</span> Book Appointment
+            </a></li>
+        </ul>
+    </aside>
+
+    <!-- ── Main Content ──────────────────────────────────────────────── -->
+    <main class="main-content">
+
+        <!-- Overview Section -->
+        <div id="section-overview" class="dashboard-section">
+            <div class="page-header">
+                <h1>Good day, <span class="user-greeting">Patient</span> 👋</h1>
+                <p>Manage your health records and appointments securely.</p>
+            </div>
+            <div class="stats-row">
+                <div class="stat-card">
+                    <div class="stat-number" id="stat-appointments">—</div>
+                    <div class="stat-label">Upcoming Appointments</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="stat-records">—</div>
+                    <div class="stat-label">Medical Records</div>
+                </div>
+            </div>
+            <div class="card">
+                <h3 style="margin-bottom:12px">Quick Actions</h3>
+                <div style="display:flex;gap:12px;flex-wrap:wrap">
+                    <a href="/appointments.html" class="btn btn-primary">📅 Book Appointment</a>
+                    <button class="btn btn-outline" onclick="showSection('section-records')">📋 View Records</button>
+                    <button class="btn btn-ghost" onclick="showSection('section-consents')">🔐 Manage Doctor Access</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Medical Records Section -->
+        <div id="section-records" class="dashboard-section hidden">
+            <div class="page-header">
+                <h1>My Medical Records</h1>
+                <p>Your health records are encrypted and viewable only by you and authorized doctors.</p>
+            </div>
+            <div class="alert alert-info">
+                🔒 Sensitive fields are masked. Click "Show" to reveal. All record views are logged.
+            </div>
+            <div id="records-list">
+                <div style="text-align:center;padding:40px"><span class="loader loader-dark"></span></div>
+            </div>
+        </div>
+
+        <!-- Appointments Section -->
+        <div id="section-appointments" class="dashboard-section hidden">
+            <div class="page-header">
+                <h1>My Appointments</h1>
+                <p>View upcoming and past consultations.</p>
+            </div>
+            <div style="margin-bottom:16px">
+                <a href="/appointments.html" class="btn btn-primary">➕ Book New Appointment</a>
+            </div>
+            <div id="appointments-list"></div>
+        </div>
+
+        <!-- Consents Section -->
+        <div id="section-consents" class="dashboard-section hidden">
+            <div class="page-header">
+                <h1>Doctor Access Management</h1>
+                <p>Control which doctors can view your medical records. You can revoke access at any time.</p>
+            </div>
+            <div class="card mb-2">
+                <h3 style="margin-bottom:16px">Grant Access to a Doctor</h3>
+                <form onsubmit="grantConsent(event)" style="display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap">
+                    <div class="form-group" style="flex:1;min-width:200px;margin:0">
+                        <label for="consent-doctor-select">Select Doctor</label>
+                        <select id="consent-doctor-select" class="form-control">
+                            <option value="">Loading doctors…</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Grant Access</button>
+                </form>
+            </div>
+            <div id="consents-list"></div>
+        </div>
+
+        <!-- Profile Section -->
+        <div id="section-profile" class="dashboard-section hidden">
+            <div class="page-header">
+                <h1>My Profile</h1>
+                <p>Your personal and insurance information on file.</p>
+            </div>
+            <div class="card">
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+                    <div>
+                        <h4 class="text-muted" style="font-size:.8rem;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">Full Name</h4>
+                        <p id="profile-name">—</p>
+                    </div>
+                    <div>
+                        <h4 class="text-muted" style="font-size:.8rem;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">Email</h4>
+                        <p id="profile-email">—</p>
+                    </div>
+                    <div>
+                        <h4 class="text-muted" style="font-size:.8rem;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">Date of Birth</h4>
+                        <p id="profile-dob">—</p>
+                    </div>
+                    <div>
+                        <h4 class="text-muted" style="font-size:.8rem;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">Phone</h4>
+                        <p id="profile-phone">—</p>
+                    </div>
+                    <div style="grid-column:1/-1">
+                        <h4 class="text-muted" style="font-size:.8rem;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">Address</h4>
+                        <p id="profile-address">—</p>
+                    </div>
+                    <div>
+                        <h4 class="text-muted" style="font-size:.8rem;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">Insurance Provider</h4>
+                        <p id="profile-insurer">—</p>
+                    </div>
+                    <div>
+                        <h4 class="text-muted" style="font-size:.8rem;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">Policy Number <span style="font-size:.7rem">(masked — CONF-04)</span></h4>
+                        <p id="profile-policy">—</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+</div>
+
+<script src="/js/utils.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/patient.js"></script>
+<script>
+    initPatientDashboard();
+</script>
+</body>
+</html>

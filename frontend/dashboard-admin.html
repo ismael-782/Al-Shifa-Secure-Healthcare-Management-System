@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>As-Shifa — Admin Dashboard</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<nav class="navbar">
+    <div class="navbar-brand">
+        <div class="logo-icon">⚕️</div>
+        As-Shifa Healthcare
+    </div>
+    <div class="navbar-nav">
+        <div class="navbar-user">
+            <span>Admin: <strong class="user-greeting">Admin</strong></span>
+            <span class="role-badge" style="background:var(--color-danger)">Admin</span>
+        </div>
+        <button onclick="handleLogout()">Logout</button>
+    </div>
+</nav>
+
+<div class="app-layout">
+    <aside class="sidebar">
+        <ul class="sidebar-nav">
+            <li><a href="#" data-section="section-overview" onclick="showSection('section-overview');return false;" class="active">
+                <span class="nav-icon">🏠</span> Overview
+            </a></li>
+            <li><a href="#" data-section="section-users" onclick="showSection('section-users');return false;">
+                <span class="nav-icon">👥</span> Users
+            </a></li>
+            <li><a href="#" data-section="section-appointments" onclick="showSection('section-appointments');return false;">
+                <span class="nav-icon">📅</span> Appointments
+            </a></li>
+            <li><a href="/insurance.html">
+                <span class="nav-icon">📄</span> Insurance Claims
+            </a></li>
+            <li><a href="#" data-section="section-audit" onclick="showSection('section-audit');return false;">
+                <span class="nav-icon">📑</span> Audit Logs
+            </a></li>
+            <li><a href="#" data-section="section-alerts" onclick="showSection('section-alerts');return false;">
+                <span class="nav-icon">⚠️</span> Security Alerts
+            </a></li>
+            <li><a href="#" data-section="section-health" onclick="showSection('section-health');return false;">
+                <span class="nav-icon">💚</span> System Health
+            </a></li>
+        </ul>
+    </aside>
+
+    <main class="main-content">
+
+        <!-- Overview -->
+        <div id="section-overview" class="dashboard-section">
+            <div class="page-header">
+                <h1>Admin Dashboard</h1>
+                <p>Full system oversight — user management, audit logs, and security monitoring.</p>
+            </div>
+            <div class="stats-row">
+                <div class="stat-card">
+                    <div class="stat-number" id="stat-total-users">—</div>
+                    <div class="stat-label">Total Users</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="stat-patients">—</div>
+                    <div class="stat-label">Patients</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="stat-doctors">—</div>
+                    <div class="stat-label">Doctors</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="stat-locked" style="color:var(--color-danger)">—</div>
+                    <div class="stat-label">Locked Accounts</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="stat-alerts" style="color:var(--color-warning)">—</div>
+                    <div class="stat-label">Active Alerts</div>
+                </div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+                <div class="card">
+                    <h3 style="margin-bottom:12px">Quick Actions</h3>
+                    <div style="display:flex;flex-direction:column;gap:8px">
+                        <button class="btn btn-outline btn-sm" onclick="showSection('section-users')">👥 Manage Users</button>
+                        <button class="btn btn-outline btn-sm" onclick="showSection('section-audit')">📑 View Audit Logs</button>
+                        <button class="btn btn-outline btn-sm" onclick="showSection('section-alerts')">⚠️ Security Alerts</button>
+                        <a href="/insurance.html" class="btn btn-outline btn-sm">📄 Insurance Claims</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3 style="margin-bottom:12px">System Status</h3>
+                    <button class="btn btn-primary btn-sm" onclick="showSection('section-health')">💚 Check System Health</button>
+                    <p class="text-muted" style="font-size:.85rem;margin-top:8px">AVL-05: Monitor uptime and database connectivity.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Users -->
+        <div id="section-users" class="dashboard-section hidden">
+            <div class="page-header">
+                <h1>User Management</h1>
+                <p>AUTHZ-04: Admin-only. AUTH-04: Unlock locked accounts here.</p>
+            </div>
+            <div id="users-list"></div>
+        </div>
+
+        <!-- Appointments -->
+        <div id="section-appointments" class="dashboard-section hidden">
+            <div class="page-header">
+                <h1>All Appointments</h1>
+            </div>
+            <div id="admin-appointments-list"></div>
+        </div>
+
+        <!-- Audit Logs -->
+        <div id="section-audit" class="dashboard-section hidden">
+            <div class="page-header">
+                <h1>Audit Logs</h1>
+                <p>AUD-04: Searchable and filterable audit trail. Every user action is recorded with identity and timestamp.</p>
+            </div>
+            <div class="card card-sm mb-2">
+                <div class="audit-filters">
+                    <div class="form-group" style="margin:0">
+                        <label style="font-size:.8rem;margin-bottom:4px">Filter by User ID</label>
+                        <input type="text" id="filter-user" class="form-control" placeholder="UUID…">
+                    </div>
+                    <div class="form-group" style="margin:0">
+                        <label style="font-size:.8rem;margin-bottom:4px">Filter by Action</label>
+                        <input type="text" id="filter-action" class="form-control" placeholder="e.g. LOGIN…">
+                    </div>
+                    <div class="form-group" style="margin:0">
+                        <label style="font-size:.8rem;margin-bottom:4px">Status</label>
+                        <select id="filter-status" class="form-control">
+                            <option value="">All</option>
+                            <option value="SUCCESS">Success</option>
+                            <option value="FAILURE">Failure</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="margin:0">
+                        <label style="font-size:.8rem;margin-bottom:4px">From</label>
+                        <input type="datetime-local" id="filter-from" class="form-control">
+                    </div>
+                    <div class="form-group" style="margin:0">
+                        <label style="font-size:.8rem;margin-bottom:4px">To</label>
+                        <input type="datetime-local" id="filter-to" class="form-control">
+                    </div>
+                    <div style="display:flex;align-items:flex-end">
+                        <button class="btn btn-primary btn-sm w-full" onclick="loadAuditLogs(0)">Search</button>
+                    </div>
+                </div>
+            </div>
+            <div id="audit-list"></div>
+        </div>
+
+        <!-- Security Alerts -->
+        <div id="section-alerts" class="dashboard-section hidden">
+            <div class="page-header">
+                <h1>Security Alerts</h1>
+                <p>AUD-05: System alerts for locked accounts and suspicious login activity.</p>
+            </div>
+            <div id="alerts-container"></div>
+        </div>
+
+        <!-- System Health -->
+        <div id="section-health" class="dashboard-section hidden">
+            <div class="page-header">
+                <h1>System Health</h1>
+                <p>AVL-05: Real-time uptime and database connectivity status.</p>
+            </div>
+            <div id="health-container"></div>
+            <button class="btn btn-ghost btn-sm mt-2" onclick="loadSystemHealth()">🔄 Refresh</button>
+        </div>
+
+    </main>
+</div>
+
+<script src="/js/utils.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/admin.js"></script>
+<script>
+    initAdminDashboard();
+</script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>As-Shifa — MFA Verification</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<div class="auth-page">
+    <div class="auth-card">
+        <div class="auth-logo">
+            <div class="logo-circle">🔐</div>
+            <h1>Two-Factor Verification</h1>
+            <p>A 6-digit code has been sent to your registered email address</p>
+        </div>
+
+        <div class="alert alert-info" style="margin-bottom:20px">
+            <span>📧</span>
+            <span>Please check your email and enter the verification code below. The code expires in <strong>10 minutes</strong>.</span>
+        </div>
+
+        <form id="mfa-form" onsubmit="handleMfaVerify(event)" novalidate>
+            <div class="form-group" style="text-align:center">
+                <label style="display:block;margin-bottom:16px;font-size:.95rem">Enter your 6-digit code</label>
+                <div class="otp-wrapper" id="otp-container">
+                    <input class="otp-input" type="text" inputmode="numeric" maxlength="1" autocomplete="one-time-code" aria-label="Digit 1">
+                    <input class="otp-input" type="text" inputmode="numeric" maxlength="1" aria-label="Digit 2">
+                    <input class="otp-input" type="text" inputmode="numeric" maxlength="1" aria-label="Digit 3">
+                    <input class="otp-input" type="text" inputmode="numeric" maxlength="1" aria-label="Digit 4">
+                    <input class="otp-input" type="text" inputmode="numeric" maxlength="1" aria-label="Digit 5">
+                    <input class="otp-input" type="text" inputmode="numeric" maxlength="1" aria-label="Digit 6">
+                </div>
+            </div>
+
+            <div id="mfa-error" class="alert alert-error hidden" role="alert"></div>
+
+            <button type="submit" id="mfa-btn" class="btn btn-primary w-full btn-lg">
+                Verify Code
+            </button>
+
+            <div style="text-align:center;margin-top:16px">
+                <button type="button" class="btn btn-ghost btn-sm" onclick="handleLogout()">
+                    ← Back to Login
+                </button>
+            </div>
+        </form>
+
+        <p style="text-align:center;font-size:.75rem;color:var(--color-text-light);margin-top:20px">
+            🔒 This additional step protects privileged accounts from unauthorized access.
+        </p>
+    </div>
+</div>
+
+<script src="/js/utils.js"></script>
+<script src="/js/auth.js"></script>
+<script>
+    // If no pending MFA, redirect to login
+    if (!sessionStorage.getItem('mfa_pending')) {
+        (async () => {
+            const res = await apiFetch('/api/v1/auth/status');
+            if (!res?.data?.authenticated) {
+                window.location.href = '/index.html';
+            } else if (res.data.mfaComplete) {
+                redirectToDashboard(res.data.role);
+            }
+        })();
+    }
+
+    // Initialize OTP input keyboard navigation
+    initOtpInputs();
+
+    // Focus first input
+    document.querySelector('.otp-input')?.focus();
+</script>
+</body>
+</html>

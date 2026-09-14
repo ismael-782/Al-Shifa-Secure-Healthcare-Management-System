@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="As-Shifa Secure Healthcare Management System">
+    <title>As-Shifa Healthcare — Login</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<div class="auth-page">
+    <div class="auth-card">
+        <!-- Logo / Brand -->
+        <div class="auth-logo">
+            <div class="logo-circle">⚕️</div>
+            <h1>As-Shifa</h1>
+            <p>Secure Healthcare Management System</p>
+        </div>
+
+        <!-- Session-expired / logout message -->
+        <div id="logout-message" class="alert alert-info hidden"></div>
+
+        <!-- Login Form -->
+        <form id="login-form" onsubmit="handleLogin(event)" novalidate>
+            <div class="form-group">
+                <label for="username">Username <span class="required">*</span></label>
+                <div class="input-wrapper">
+                    <span class="input-icon">👤</span>
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        class="form-control"
+                        placeholder="Enter your username"
+                        autocomplete="username"
+                        required
+                        maxlength="50"
+                    >
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password <span class="required">*</span></label>
+                <div class="input-wrapper">
+                    <span class="input-icon">🔑</span>
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        class="form-control"
+                        placeholder="Enter your password"
+                        autocomplete="current-password"
+                        required
+                        maxlength="200"
+                    >
+                    <button type="button" class="input-toggle" onclick="togglePasswordVisibility('password')" aria-label="Toggle password visibility">👁</button>
+                </div>
+            </div>
+
+            <div id="login-error" class="alert alert-error hidden" role="alert"></div>
+
+            <button type="submit" id="login-btn" class="btn btn-primary w-full btn-lg">
+                Sign In
+            </button>
+        </form>
+
+        <div class="auth-divider">or</div>
+
+        <div style="text-align:center">
+            <p style="font-size:.9rem;color:var(--color-text-muted)">New patient?</p>
+            <a href="/register.html" class="btn btn-outline w-full" style="margin-top:8px;justify-content:center">
+                Create Patient Account
+            </a>
+        </div>
+
+        <p style="text-align:center;font-size:.75rem;color:var(--color-text-light);margin-top:24px">
+            🔒 All connections are encrypted (TLS). This system is HIPAA-aligned.
+        </p>
+    </div>
+</div>
+
+<script src="/js/utils.js"></script>
+<script src="/js/auth.js"></script>
+<script>
+    // Show logout/session-expired message if redirected here
+    const reason = sessionStorage.getItem('logout_reason');
+    if (reason) {
+        const el = document.getElementById('logout-message');
+        if (el) { el.textContent = reason; el.classList.remove('hidden'); }
+        sessionStorage.removeItem('logout_reason');
+    }
+
+    // If already logged in, redirect to appropriate dashboard
+    (async () => {
+        try {
+            const res = await apiFetch('/api/v1/auth/status');
+            if (res?.data?.authenticated && res.data.mfaComplete) {
+                redirectToDashboard(res.data.role);
+            } else if (res?.data?.authenticated && !res.data.mfaComplete) {
+                window.location.href = '/mfa.html';
+            }
+        } catch (_) {}
+    })();
+</script>
+</body>
+</html>

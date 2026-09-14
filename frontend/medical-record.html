@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>As-Shifa — Medical Record</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<nav class="navbar">
+    <div class="navbar-brand">
+        <div class="logo-icon">⚕️</div>
+        As-Shifa Healthcare
+    </div>
+    <div class="navbar-nav">
+        <a href="javascript:history.back()">← Back</a>
+        <button onclick="handleLogout()">Logout</button>
+    </div>
+</nav>
+
+<div class="container" style="max-width:800px;padding:32px 24px">
+    <div class="page-header">
+        <h1>Medical Record — UC-04 / UC-05</h1>
+        <p>All clinical data is encrypted at rest. Prescriptions are digitally signed (INT-05).</p>
+    </div>
+
+    <div class="alert alert-info" style="margin-bottom:20px">
+        🔒 This record access has been logged with your user identity and timestamp (AUD-01, AUD-02, AUD-03).
+    </div>
+
+    <div id="record-container">
+        <div style="text-align:center;padding:60px">
+            <span class="loader loader-dark"></span>
+            <p class="text-muted" style="margin-top:12px">Loading record…</p>
+        </div>
+    </div>
+</div>
+
+<script src="/js/utils.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/records.js"></script>
+<script>
+    initRecordPage();
+</script>
+</body>
+</html>

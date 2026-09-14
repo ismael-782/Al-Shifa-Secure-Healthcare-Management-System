@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>As-Shifa — Insurance Claims</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<nav class="navbar">
+    <div class="navbar-brand">
+        <div class="logo-icon">⚕️</div>
+        As-Shifa Healthcare
+    </div>
+    <div class="navbar-nav">
+        <a href="/dashboard-admin.html" class="admin-only">← Admin Dashboard</a>
+        <div class="navbar-user">
+            <span><strong class="user-greeting">User</strong></span>
+            <span class="role-badge">Claims</span>
+        </div>
+        <button onclick="handleLogout()">Logout</button>
+    </div>
+</nav>
+
+<div class="container" style="padding:32px 24px">
+    <div class="page-header">
+        <h1>📄 Insurance Claims — UC-06</h1>
+        <p>Submit, review, and process insurance claims. Claim details encrypted with AES-256 (CONF-01).</p>
+    </div>
+
+    <!-- Submit New Claim (Admin only) -->
+    <div class="card mb-3 admin-only">
+        <h3 style="margin-bottom:16px">Submit New Claim</h3>
+        <form id="new-claim-form" onsubmit="submitNewClaim(event)">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="claim-patient-select">Patient <span class="required">*</span></label>
+                    <select id="claim-patient-select" class="form-control" required>
+                        <option value="">Loading…</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="claim-doctor-select">Doctor <span class="required">*</span></label>
+                    <select id="claim-doctor-select" class="form-control" required>
+                        <option value="">Loading…</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="claim-appointment-select">Associated Appointment</label>
+                <select id="claim-appointment-select" class="form-control">
+                    <option value="">None (or loading…)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="claim-details">Claim Details <span class="required">*</span></label>
+                <textarea id="claim-details" class="form-control" rows="5" required maxlength="10000"
+                    placeholder="Describe the services rendered, diagnosis codes, costs…"></textarea>
+                <div class="form-hint">🔒 Claim details are encrypted before storage.</div>
+            </div>
+            <div id="claim-error" class="alert alert-error hidden"></div>
+            <button type="submit" id="submit-claim-btn" class="btn btn-primary">Submit Claim</button>
+        </form>
+    </div>
+
+    <!-- Claims List -->
+    <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+            <h3>Claims Overview</h3>
+            <button class="btn btn-ghost btn-sm" onclick="loadClaims()">🔄 Refresh</button>
+        </div>
+        <div id="claims-list">
+            <div style="text-align:center;padding:20px"><span class="loader loader-dark"></span></div>
+        </div>
+    </div>
+</div>
+
+<!-- Claim Detail Modal -->
+<div id="claim-modal" class="hidden" style="position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:500;display:flex;align-items:center;justify-content:center;padding:24px">
+    <div style="background:#fff;border-radius:12px;max-width:600px;width:100%;max-height:90vh;overflow-y:auto;padding:32px">
+        <div id="claim-modal-content"></div>
+    </div>
+</div>
+
+<script src="/js/utils.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/insurance.js"></script>
+<script>
+    initInsurancePage();
+</script>
+</body>
+</html>
